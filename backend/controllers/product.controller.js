@@ -67,7 +67,15 @@ const removeProduct = async (req,res) => {
 }
 //add products
 const singleProduct = async (req,res) => {
-    
+    try {
+        const {productId} = req.body;
+        const product = await productModel.findById(productId);
+        res.json({success: true, message: product});
+
+    } catch (error) {
+        console.log(error);
+        res.json({success: false, message: error.message});
+    }
 }
 
 export  {addProduct, listProducts, removeProduct, singleProduct};
